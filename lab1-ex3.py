@@ -1,3 +1,5 @@
+# Write a program that will take as input a positive natural number and return the next smaller number from the same digits
+
 input_num = input("Give natural number: ")
 
 number = [char for char in input_num]
