@@ -1,3 +1,6 @@
+# Given an integer array set of unique elements,which may include subsets, return all possible subsets (the power set).
+# Return the solution in any order
+
 def powerset(input_set):
     if len(input_set) == 0:
         return [[]]  # The powerset of an empty set is a set containing the empty set
