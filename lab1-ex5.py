@@ -1,3 +1,5 @@
+# Write a program that prints the Sierpinski carpet for the depth `n`, where `n` is an input value.
+
 import matplotlib.pyplot as plt
 def draw_carpet(ax, depth, x, y, size):
     if depth == 0:
