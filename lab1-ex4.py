@@ -1,3 +1,10 @@
+# You have to write a program that computes the truth table for various expressions. The set of expressions are limited to:
+# - `and` operation
+# - `or` operation
+# - `not` operation
+# - supports parenthesis
+
+
 from itertools import product
 from prettytable import PrettyTable  # Install using: pip install prettytable
 
