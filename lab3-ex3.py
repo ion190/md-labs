@@ -68,22 +68,22 @@ def read_people_interests(file_path):
     return dict
 
 
-#CODE FOR PROBLEM 3,1
 
+print('\nProblem 3.1\nthe person with the most friends')
 names,friendship_matrix=read_matrix("matrix.txt")
-names_dict={names[i]:sum(friendship_matrix[i]) for i in range(20)}
-print("PROBLEM 3.1:")
-print("{0} has the most friends, {1} friends".format(max(names_dict,key=names_dict.get),names_dict[max(names_dict,key=names_dict.get)]))
+names_dict={names[i]: sum(friendship_matrix[i]) for i in range(20)}
+print("{0} has the most friends: {1} friends".format(max(names_dict,key=names_dict.get),names_dict[max(names_dict,key=names_dict.get)]))
 
-#CODE FOR PROBLEM 3,2
 
+
+print('\nProblem 3.2\nSort all the people by the number of friends')
 sorted_names=dict(sorted(names_dict.items(), key=lambda item: item[1]))
-print("\n\nPROBLEM 3.2:")
 for name, friends in sorted_names.items():
-    print("{0} has {1} friends".format(name,friends))
+    print("{0} has {1} friends".format(name, friends))
 
-#CODE FOR PROBLEM 3,3
 
+
+print('\nProblem 3.3\nRating (by finding shortest path)')
 friendship_list=adjacency_matrix_to_set(friendship_matrix)
 rating={name:0 for name in names}
 for start in range(len(names)):
@@ -100,49 +100,45 @@ for start in range(len(names)):
 
     connections.pop(start)
     rating[names[start]]=sum(connections)-len(names)+1
-print("\n\nPROBLEM 3.3:")
 print(rating)
 
 
-#CODE FOR PROBLEM 3,4
 
-
-print("\n\nPROBLEM 3.4")
+print('\nProblem 3.4\nNew Rating based on Connections and Posting Rate')
 posting_rate=read_influence("influence.txt")
 posting_friends={name:0.5*posting_rate[name]+0.5*names_dict[name] for name in names}
-print("By frequency and friends criteria I will contact {0} because he has an average score of {1} ".format(max(posting_friends,key=posting_friends.get),posting_friends[max(posting_friends,key=posting_friends.get)]))
+print("By frequency and nr of friends I will contact {0} because he has an average score of {1} ".format(max(posting_friends,key=posting_friends.get),posting_friends[max(posting_friends,key=posting_friends.get)]))
 new_rating={name:0.5*posting_rate[name]*rating[name] for name in names}
 sorted_rating=dict(sorted(new_rating.items(), key=lambda item: item[1]))
-print("\nNew Rating based on Connections and Posting Rate:")
 for name, score in sorted_rating.items():
     print("{0} has a score of {1} ".format(name,score))
 
 
-#CODE FOR PROBLEM 3,5
 
-
-print("\n\nPROBLEM 3.5")
+print("\n\nProblem 3.5\nsee what spectre of interests is your book marketable to")
 interests=read_interests("interests.txt")
-book_name="From T-Rex to Multi Universes How the Internet has Changed Politics Art and Cute Cats"
+book_name="From T-Rex to Multi Universes: How the Internet has Changed Politics, Art and Cute Cats"
 book_name=book_name.split(' ')
 my_interests=[]
 for interest in interests:
     if interest in book_name:
         my_interests.append(interest)
-print('The book is marketable in the following spectre of interests: ',end='')
+print('The book is marketable in the following spectre of interests: ', end='')
 for interest in my_interests:
     print(interest,end=', ')
-print()
 
 
-#CODE FOR 3.6
 
-print("\n\nPROBLEM 3.6")
+print("\n\nProblem 3.6\nlist of 5 people we should contact to make your book a bestseller")
 people_interests=read_people_interests("people_interests.txt")
-print(people_interests)
 final_score={name:0.2*len(set(people_interests[name]).intersection(set(my_interests)))*new_rating[name] for name in names}
-print(final_score)
 sorted_final=dict(sorted(final_score.items(), key=lambda item: item[1]))
-print("\nFinal Results:")
+print("\nPeople sorted by final score:")
 for name, score in sorted_final.items():
     print("{0} has a score of {1:.4f} ".format(name,score))
+print("\nWe should contact these 5 people:")
+i=0
+for name in sorted_final.items():
+    if i >= len(sorted_final.items())-5:
+        print(name[0])
+    i+=1
